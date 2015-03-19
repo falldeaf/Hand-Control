@@ -18,7 +18,7 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -58,8 +58,18 @@ function WebIntent(url_str) {
 	  );		        
 }
 
+function testWebIntent() {
+    address = "1600+Amphitheatre+Parkway%2C+CA" ;
+    window.plugins.webintent.startActivity({
+        action: window.plugins.webintent.ACTION_VIEW,
+        url: 'tasker://test'}, 
+        function() {alert('success')}, 
+        function() {alert('Failed to open URL via Android Intent')}
+    );		        
+}
+
 function Discover(){
 			rfduino.discover(3, function(device) {
     		alert(JSON.stringify(device));
-		}, failure);
+		}, function(){ alert("failed :("); });
 }
