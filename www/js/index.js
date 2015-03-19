@@ -34,6 +34,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -47,3 +48,18 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+function WebIntent(url_str) {
+	   window.plugins.webintent.startActivity({
+		  action: window.plugins.webintent.ACTION_VIEW,
+		  url: url_str}, 
+		  function() {alert('success')}, 
+		  function() {alert('Failed to open URL via Android Intent')}
+	  );		        
+}
+
+function Discover(){
+			rfduino.discover(3, function(device) {
+    		alert(JSON.stringify(device));
+		}, failure);
+}
