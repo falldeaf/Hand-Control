@@ -49,6 +49,10 @@ var app = {
     }
 };
 
+function callTask() {
+	WebIntent("tasker://uritest");
+}
+
 function WebIntent(url_str) {
 	   window.plugins.webintent.startActivity({
 		  action: window.plugins.webintent.ACTION_VIEW,
