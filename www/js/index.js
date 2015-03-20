@@ -49,7 +49,7 @@ var app = {
     }
 };
 
-function WebIntent(url_str) {
+function CallWebIntent(url_str) {
 	   window.plugins.webintent.startActivity({
 		  action: window.plugins.webintent.ACTION_VIEW,
 		  url: url_str}, 
@@ -59,7 +59,7 @@ function WebIntent(url_str) {
 }
 
 function callTask() {
-	WebIntent('tasker://uritest');
+	CallWebIntent('tasker://uritest');
 }
 
 function testWebIntent() {
