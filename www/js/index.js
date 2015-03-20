@@ -49,10 +49,6 @@ var app = {
     }
 };
 
-function callTask() {
-	WebIntent("tasker://uritest");
-}
-
 function WebIntent(url_str) {
 	   window.plugins.webintent.startActivity({
 		  action: window.plugins.webintent.ACTION_VIEW,
@@ -60,6 +56,10 @@ function WebIntent(url_str) {
 		  function() {alert('success')}, 
 		  function() {alert('Failed to open URL via Android Intent')}
 	  );		        
+}
+
+function callTask() {
+	WebIntent('tasker://uritest');
 }
 
 function testWebIntent() {
