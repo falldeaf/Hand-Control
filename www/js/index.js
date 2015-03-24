@@ -16,6 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+//required apps:
+// Tasker URL Launcher
+// market://https://play.google.com/store/apps/details?id=com.aledthomas.taskerurllauncher&hl=en
+// Tasker
+// market://https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -46,34 +53,44 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+	
+	CallWebIntent: function(url_str) {
+		window.plugins.webintent.startActivity({
+			action: window.plugins.webintent.ACTION_VIEW,
+			url: url_str}, 
+			function() {alert('success')}, 
+			function() {alert('Failed to open URL via Android Intent')}
+		);
+	},
+	
+	onData: function(data) {
+		console.log(data);
+		var button_value = arrayBufferToInt(data);
+		var div = document.getElementById('logdiv');
+		div.innerHTML = div.innerHTML + button_value;
+	},
+	
+	Discover() {
+		rfduino.discover(3, app.onDiscoverDevice, function(){ alert("failed :("); });
+	}
+	
+	onDiscoverDevice: function(device) {
+        var listItem = document.createElement('li'),
+            html = '<b>' + device.name + '</b><br/>' +
+                'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
+                'Advertising: ' + device.advertising + '<br/>' +
+                device.uuid;
+
+        listItem.setAttribute('uuid', device.uuid);
+        listItem.innerHTML = html;
+		var devices = document.getElementById('devices');
+        devices.appendChild(listItem);
     }
+
 };
 
-function CallWebIntent(url_str) {
-	   window.plugins.webintent.startActivity({
-		  action: window.plugins.webintent.ACTION_VIEW,
-		  url: url_str}, 
-		  function() {alert('success')}, 
-		  function() {alert('Failed to open URL via Android Intent')}
-	  );		        
-}
-
-function callTask() {
-	CallWebIntent('tasker://uritest');
-}
-
-function testWebIntent() {
-    address = "1600+Amphitheatre+Parkway%2C+CA" ;
-    window.plugins.webintent.startActivity({
-        action: window.plugins.webintent.ACTION_VIEW,
-        url: 'tasker://uritest'}, 
-        function() {alert('success')}, 
-        function() {alert('Failed to open URL via Android Intent')}
-    );		        
-}
-
-function Discover(){
-			rfduino.discover(3, function(device) {
-    		alert(JSON.stringify(device));
-		}, function(){ alert("failed :("); });
-}
+var arrayBufferToInt = function (ab) {
+    var a = new Uint8Array(ab);
+    return a[0];
+};

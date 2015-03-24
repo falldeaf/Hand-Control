@@ -1,0 +1,26 @@
+{
+  "test": {
+    "ntype": "terminal",
+    "wintent": "tasker://testask",
+    "analogue_intent": "tasker://testask_a",
+    "color": "#FFF"
+  },
+  "house": {
+    "ntype": "branch",
+    "color": "#0F0",
+    "branches": {
+      "light1": {
+        "ntype": "terminal",
+        "wintent": "tasker://light1toggle",
+        "analogue_intent": "tasker://light1_a",
+        "color": "#F00"
+      },
+      "light2": {
+        "ntype": "terminal",
+        "wintent": "tasker://light2toggle",
+        "analogue_intent": "tasker://light2_a",
+        "color": "#00F"
+      }
+    }
+  }
+}
