@@ -34,16 +34,18 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        deviceList.addEventListener('touchstart', this.connect, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        //app.receivedEvent('deviceready');
 		
     },
     // Update DOM on a Received Event
+    /*
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
@@ -53,7 +55,7 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    },
+    },*/
 	
 	CallWebIntent: function(url_str) {
 		window.plugins.webintent.startActivity({
@@ -71,9 +73,9 @@ var app = {
 		div.innerHTML = div.innerHTML + button_value;
 	},
 	
-	Discover() {
+	Discover: function() {
 		rfduino.discover(3, app.onDiscoverDevice, function(){ alert("failed :("); });
-	}
+	},
 	
 	onDiscoverDevice: function(device) {
         var listItem = document.createElement('li'),
@@ -84,8 +86,27 @@ var app = {
 
         listItem.setAttribute('uuid', device.uuid);
         listItem.innerHTML = html;
-		var devices = document.getElementById('devices');
+		var devices = document.getElementById('deviceList');
         devices.appendChild(listItem);
+    },
+    
+    connect: function(e) {
+        var uuid = e.target.getAttribute('uuid'),
+            onConnect = function() {
+                rfduino.onData(app.onData, app.onError);
+                //app.showDetailPage();
+                alert("connected!");
+            };
+
+        rfduino.connect(uuid, onConnect, app.onError);
+    },
+    
+    disconnect: function() {
+        rfduino.disconnect(app.showMainPage, app.onError);
+    },
+    
+    onError: function(reason) {
+        alert(reason); // real apps should use notification.alert
     }
 
 };

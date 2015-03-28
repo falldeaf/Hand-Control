@@ -43,8 +43,9 @@
 			<button onclick='navigator.notification.vibrate(2000);'>C'Mon Y'all, commence to jigglin'!</button>
         </div> -->
 		<div id="connection"></div>
-		<ul id="devices"></ul>
-		<button onclick='Discover();'>Discover</button>
+		<ul id="deviceList"></ul>
+		<button onclick='app.Discover();'>Discover</button>
+        <button onclick='app.onData("9");'>ondata fake test</button>
 		<div id="logdiv"></div>
         <script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
