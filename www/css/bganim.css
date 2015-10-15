@@ -1,0 +1,124 @@
+.bganim {
+  height: 100%;
+  font-size: 1em;
+  /* background-color: hsl(60,0%,20%); */
+  background-color: blue;
+  /*transition: background-color 1000ms linear;*/
+  background-image:
+    /* 1 */
+    radial-gradient(
+      white 10%,
+      hsla(0,0%,100%,0) 11%
+      ),
+    /* 2 */
+    radial-gradient(
+      white 10%,
+      hsla(0,0%,100%,0) 11%
+      ),
+    /* 3 */
+    radial-gradient(
+      white 8%,
+      hsla(0,0%,100%,0) 9%
+      ),
+    /* 4 */
+    radial-gradient(
+      white 6%,
+      hsla(0,0%,100%,0) 7%
+      ),
+    /* 5 */
+    radial-gradient(
+      white 6%,
+      hsla(0,0%,100%,0) 7%
+      ),
+    /* 6 */
+    radial-gradient(
+      white 8%,
+      hsla(0,0%,100%,0) 9%
+      ),  
+    /* 7 */
+    radial-gradient(
+      white 10%,
+      hsla(0,0%,100%,0) 11%
+      ),
+    /* 8 */
+    radial-gradient(
+      white 10%,
+      hsla(0,0%,100%,0) 11%
+      ),
+		
+    /*radial-gradient(
+      hsla(24,40%,90%,.7), 
+      hsla(0,0%,100%,0)
+      ),*/
+    linear-gradient(
+      0deg, 
+      hsl(24,80%,50%), 
+      hsl(225,80%,10%), 
+      hsl(10,80%,50%)
+      );
+  background-position: 
+    calc(50% - 5em) 50%,/* 1 */
+    calc(50% - 2.5em) calc(50% - 1.5em),/* 2 */
+    50% calc(50% - 2em),/* 3 */ 
+    calc(50% + 2.5em) calc(50% - 1.5em),/* 4 */
+    
+    calc(50% - 5em) 50%,/* 5 */
+    calc(50% - 2.5em) calc(50% + 1.5em),/* 6 */
+    50% calc(50% + 2em),/* 7 */ 
+    calc(50% + 2.5em) calc(50% + 1.5em),/* 8 */
+    
+    0 50%,    
+    0 50%;    
+    background-size: 
+      10em 10em,
+      10em 10em,
+      10em 10em,
+      10em 10em,
+    
+      10em 10em,
+      10em 10em,
+      10em 10em,
+      10em 10em,
+      
+      100% 100%,      
+      100% 100%;
+  background-repeat: repeat-x;
+  animation: .25s ring linear infinite;
+  }
+
+
+@keyframes ring {
+  0% {
+    background-position: 
+      calc(50% - 5em) 50%,/* 1 */
+      calc(50% - 2.5em) calc(50% - 1.5em),/* 2 */
+      50% calc(50% - 2em),/* 3 */ 
+      calc(50% + 2.5em) calc(50% - 1.5em),/* 4 */
+      
+      calc(50% - 5em) 50%,/* 5 */
+      calc(50% - 2.5em) calc(50% + 1.5em),/* 6 */
+      50% calc(50% + 2em),/* 7 */ 
+      calc(50% + 2.5em) calc(50% + 1.5em),/* 8 */
+      
+      0 50%,      
+      0 50%;  
+    }
+  100% { 
+    background-position: 
+      calc(50% - 2.5em) calc(50% - 1.5em),/* 1 */
+      50% calc(50% - 2em),/* 2 */
+      calc(50% + 2.5em) calc(50% - 1.5em),/* 3 */ 
+      calc(50% + 5em) 50%,/* 4 */
+      
+      calc(50% - 2.5em) calc(50% + 1.5em),/* 5 */
+      50% calc(50% + 2em),/* 6 */
+      calc(50% + 2.5em) calc(50% + 1.5em),/* 7 */ 
+      calc(50% + 5em) 50%,/* 8 */
+      
+      0 50%,      
+      0 50%;  
+    }
+  }
+
+
+

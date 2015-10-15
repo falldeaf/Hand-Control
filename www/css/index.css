@@ -82,12 +82,47 @@ h1 {
 }
 
 #head {
-	background-color:#FFF;
-	height:41px;
+    top:0px;
+    position: absolute;
+    width: 100%;
+	background-color:#000;
+	height:120px;
+}
+
+.digit {
+    /* opacity: 0.5; */
+    float:left;
+    border:4px solid black;
+    text-align: center;
+    background-color: green;
+    border-radius: 10px;
+    padding:5px;
+    margin:18px 0 0 5px;
+    height:60px;
+    width:47px;
+    font-size:24px;
+    font-weight: bolder;
+}
+
+.digibar {
+    height:4px;
+    width: 0;
+    background-color: black;
+    
+}
+
+.digicon {
+    padding-top: 7px;
+    margin: 0 0 0 0px;
+    height:33px;
+    width:40px;
+    border-radius: 100px;
+    border: 4px solid black;
+    background-color:white;
 }
 
 #connection_status {
-	margin: 15px 0 0 0;
+	margin: 140px 0 0 0;
 	box-shadow: inset 0px 3px 5px rgba(0,0,0,0.3);
 	padding: 0;
 	width:100%;
@@ -218,18 +253,13 @@ ul {
 }
 
 .modal_init input {
-    padding: 8px;
+    margin:5px 0;
+    width: 100%;
     font-size: 24px;
 }
 
 .modal_init .submit {
     top:67px;
-    position: absolute;
-    width:215px;
+    width:100%;
     height:80px;
-    margin:20px;
-}
-
-.modal_init .submitbranch {
-    top:-12px;
 }

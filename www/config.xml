@@ -25,6 +25,7 @@
     <preference name="android-installLocation" value="auto" />
     <!-- <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
     <gap:plugin name="org.apache.cordova.vibration" source="npm" /> -->
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<gap:plugin name="net.tunts.webintent" version="0.2.1" />
 	<gap:plugin name="com.megster.cordova.rfduino" version="0.1.0" />    
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />

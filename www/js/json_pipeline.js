@@ -86,7 +86,7 @@ document.addEventListener('keydown', function(event) {
 */
 
 function Call(num) {
-    console.log("number!");
+    //console.log("number!");
     //num++;
 		
 	if(receive_state) {
@@ -98,6 +98,7 @@ function Call(num) {
         call_timer_handle = window.setTimeout(reset, idle_time);
         //alert(num);
         if(num < 8 && num > -1) {
+            //add branches to the root node here!!
             if(current_node == null) current_node = json;
             temp_node = current_node[Object.keys(current_node)[num]];
 
@@ -109,11 +110,11 @@ function Call(num) {
             }
 
             if(temp_node.ntype == "branch") {
-                branchNotify(temp_node.color);
+                branchNotify(num, temp_node.color);
                 current_node = temp_node.branches;
 
             } else if(temp_node.ntype == "terminal") {
-                sendIntent(temp_node.wintent, temp_node.color);
+                sendIntent(num, temp_node.wintent, temp_node.color);
                 reset();
             }
 
@@ -124,7 +125,11 @@ function Call(num) {
         //looking for unlock pattern 1-2-3-4 with 500ms interval or less
         console.log("unlock #" + num);
         if(num == unlock_normal[unlock_current_int]) {
-			console.log("match! " + num + " : " + unlock_current_int);
+			//Found a correct match for unllocking!
+            console.log("match! " + num + " : " + unlock_current_int);
+            if(num == 1) empty_head();
+            add_nnode(num, "unlock", "green");
+            
             if(unlock_timer_handle) clearTimeout(unlock_timer_handle);
 
 			//start timer
@@ -137,14 +142,20 @@ function Call(num) {
 			
 			if(unlock_current_int >= 4) {
                 receive_state = true;
-                console.log("ready to receive!");
+                //Combination correct unlocked and ready to recieve!!
+                unlocked();
+                call_timer_handle = window.setTimeout(reset, idle_time);
+                //console.log("ready to receive!");
 				//break;
 			}
+        } else {
+            add_nnode(num, "lock", "red");
         }
     }
 }
 
 function reset() {
+    locked();
 	window.clearTimeout(call_timer_handle);
 	unlock_current_int = 0;
 	current_node = null;
@@ -152,12 +163,14 @@ function reset() {
 	$('#state').text(receive_state);
 }
 
-function branchNotify(color) {
-	alert("branch!" + color);
+function branchNotify(num, color) {
+	console.log("branch!" + color);
+    add_nnode(++num, "branch", color);
 }
 
-function sendIntent(wintent, color) {
-	alert(wintent + ":" + color);
+function sendIntent(num, wintent, color) {
+	add_nnode(++num, "action", color);
+    console.log(wintent + ":" + color);
 }
 
 function submitBranch( event ) {

@@ -86,8 +86,9 @@ var app = {
 	onData: function(data) {
 		console.log(data);
 		var button_value = arrayBufferToInt(data);
-		var div = document.getElementById('logdiv');
-		div.innerHTML = div.innerHTML + button_value;
+		//var div = document.getElementById('logdiv');
+		//div.innerHTML = div.innerHTML + button_value;
+		Call(button_value);
 	},
 	
 	Discover: function() {
