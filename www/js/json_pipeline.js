@@ -1,46 +1,48 @@
 var json = {
-  "test": {
-    "ntype": "terminal",
-    "wintent": "tasker://testask",
-    "analogue_intent": "tasker://testask_a",
-    "color": "#FFF"
-  },
-  "house": {
-    "ntype": "branch",
-    "color": "#0F0",
-    "branches": {
-      "light1": {
-        "ntype": "terminal",
-        "wintent": "tasker://light1toggle",
-        "analogue_intent": "tasker://light1_a",
-        "color": "#F00"
-      },
-      "light2": {
-        "ntype": "terminal",
-        "wintent": "tasker://light2toggle",
-        "analogue_intent": "tasker://light2_a",
-        "color": "#00F"
-      },
-        "poop": {
-        "ntype": "branch",
-        "color": "#0F0",
-        "branches": {
-          "light3": {
-            "ntype": "terminal",
-            "wintent": "tasker://light3toggle",
-            "analogue_intent": "tasker://light3_a",
-            "color": "#F00"
-          },
-          "light4": {
-            "ntype": "terminal",
-            "wintent": "tasker://light4toggle",
-            "analogue_intent": "tasker://light4_a",
-            "color": "#00F"
-          }
-        }
-      }
-    }
-  }
+	"branches": {
+	  "test": {
+		"ntype": "terminal",
+		"wintent": "tasker://testask",
+		"analogue_intent": "tasker://testask_a",
+		"color": "#FFF"
+	  },
+	  "house": {
+		"ntype": "branch",
+		"color": "#0F0",
+		"branches": {
+		  "light1": {
+			"ntype": "terminal",
+			"wintent": "tasker://light1toggle",
+			"analogue_intent": "tasker://light1_a",
+			"color": "#F00"
+		  },
+		  "light2": {
+			"ntype": "terminal",
+			"wintent": "tasker://light2toggle",
+			"analogue_intent": "tasker://light2_a",
+			"color": "#00F"
+		  },
+			"poop": {
+			"ntype": "branch",
+			"color": "#0F0",
+			"branches": {
+			  "light3": {
+				"ntype": "terminal",
+				"wintent": "tasker://light3toggle",
+				"analogue_intent": "tasker://light3_a",
+				"color": "#F00"
+			  },
+			  "light4": {
+				"ntype": "terminal",
+				"wintent": "tasker://light4toggle",
+				"analogue_intent": "tasker://light4_a",
+				"color": "#00F"
+			  }
+			}
+		  }
+		}
+	  }
+	}
 }
 
 if (localStorage.getItem('the_tree') !== null) {
@@ -99,7 +101,7 @@ function Call(num) {
         //alert(num);
         if(num < 8 && num > -1) {
             //add branches to the root node here!!
-            if(current_node == null) current_node = json;
+            if(current_node == null) current_node = json["branches"];
             temp_node = current_node[Object.keys(current_node)[num]];
 
             //alert(JSON.stringify(temp_node));
@@ -247,11 +249,11 @@ function renderJSON(obj, objname) {
     for (var key in obj) {
         if (typeof obj[key] === 'object') {
             if(obj[key].ntype == "branch") {
-                retValue += "<li pos='"+objname+"[\""+key+"\"]' class='node branch'><ul>" + key + "<div class='action_button add_branch'>+B</div><div class='action_button add_terminal'>+A</div><div class='action_button remove_node'>X</div>";
+                retValue += "<li pos='"+objname+"[\""+key+"\"]' class='node branch'><ul><i class='fa fa-code-fork'></i> " + key + "<div class='action_button add_branch'><i class='fa fa-plus-circle'></i></div><div class='action_button add_terminal'><i class='fa fa-plus-square'></i></div><div class='action_button add_terminal'><i class='fa fa-edit'></i></div><div class='action_button remove_node'><i class='fa fa-remove'></i></div>";
                 retValue += renderJSON(obj[key].branches, objname+"[\""+key+"\"][\"branches\"]");
                 retValue += "</ul></li>";
             } else if(obj[key].ntype == "terminal") {
-                retValue += "<li pos='"+objname+"[\""+key+"\"]' class='node terminal'>"+key + "<div class='action_button remove_node'>X</div>"+"</li>";
+                retValue += "<li pos='"+objname+"[\""+key+"\"]' class='node terminal'><i class='fa fa-flash'></i> "+key + "<div class='action_button add_terminal'><i class='fa fa-edit'></i></div><div class='action_button remove_node'><i class='fa fa-remove'></i></div>"+"</li>";
             }
         } else {
             //retValue += "<li class='tree'>" + key + " = " + obj[key] + "</li>";
@@ -270,7 +272,7 @@ function nodePosition(node) {
 function draw() {
 	$('#json_list').addClass("node").attr('pos', 'json');
 	
-    $('#json_list').html("<div class='action_button add_branch'>+B</div><div class='action_button add_terminal'>+A</div><ul>"+renderJSON(json, "json")+"</ul>");
+    $('#json_list').html("<div class='action_button add_branch'>+B</div><div class='action_button add_terminal'>+A</div><ul>"+renderJSON(json["branches"], "json")+"</ul>");
 
 	$('.remove_node').click(function(e) {
         e.preventDefault();
