@@ -1,3 +1,4 @@
+/*
 var json = {
 	"branches": {
 		"test": {
@@ -44,6 +45,9 @@ var json = {
 		}
 	}
 }
+*/
+
+var json = {"branches":{}};
 
 if (localStorage.getItem('the_tree') !== null) {
 	console.log(json);
@@ -198,7 +202,6 @@ function openModal(dialog) {
 }
 
 function closeModal(dialog) {
-	console.log(dialog);
 	dialog.data.fadeOut('fast', function () {
 		dialog.container.slideUp('fast', function () {
 			$.modal.close(); // must call this!
@@ -211,7 +214,7 @@ function submitBranch(event) {
 	//alert( "Handler for .submit() called." );
 	var values = this.elements;
 	//console.log(values);
-	console.log(values.name.value);
+	//console.log("edit value = " + values.edit.value);
 	addBranch(values.edit.value, hold_node, values.name.value, values.color.value);
 	$.modal.close();
 	console.log(json);
@@ -223,7 +226,7 @@ function submitTerminal(event) {
 	//alert( "Handler for .submit() called." );
 	var values = this.elements;
 	//console.log(values);
-	console.log(values.name.value);
+	//console.log("edit value = " + values.edit.value);
 	addTerminal(values.edit.value, hold_node, values.name.value, values.wintent.value, values.aintent.value, values.color.value);
 	$.modal.close();
 	localStorage.setItem('the_tree', JSON.stringify(json));
@@ -236,9 +239,18 @@ function addBranch(edit, node, name, color) {
 		"color": color,
 		"branches": {}
 	}
+    
+    console.log("edit value = " + edit);
 
-	eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
-
+	//eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
+    if(edit === "true") {
+		console.log("edit=true " + node + " = tempn;");
+		eval(node + " = tempn;");
+	} else {
+		console.log("edit=false " + node + "[\"branches\"][\"" + name + "\"] = tempn;");
+		eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
+	}
+    
 	draw();
 }
 
@@ -252,11 +264,11 @@ function addTerminal(edit, node, name, wintent, aintent, color) {
 		"color": color
 	}
 	
-	if(edit) {
-		console.log(node + " = tempn;");
+	if(edit === "true") {
+		console.log("edit=true " + node + " = tempn;");
 		eval(node + " = tempn;");
 	} else {
-		console.log(node + "[\"branches\"][\"" + name + "\"] = tempn;");
+		console.log("edit=false " + node + "[\"branches\"][\"" + name + "\"] = tempn;");
 		eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
 	}
 
@@ -374,7 +386,7 @@ function draw() {
 		
 		//clear forms in case editing filled them in
 		$("input[type='text']").val("");
-		$("input[name='edit']").val("false");
+		$("#editbranch").val("false");
 
 		hold_node = $(this).closest('.node').attr('pos');
 
@@ -394,7 +406,7 @@ function draw() {
 		
 		//clear the forms in case editing filled them in
 		$("input[type='text']").val("");
-		$("input[name='edit']").val("false");
+		$("#editaction").val("false");
 		
 		hold_node = $(this).closest('.node').attr('pos');
 		$('#addTerminal').modal(modal_options);
