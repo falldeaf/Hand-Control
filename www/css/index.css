@@ -182,7 +182,7 @@ h1 {
 	box-shadow: inset 0px 3px 5px rgba(0,0,0,0.3);
 	padding: 0;
 	width:100%;
-    background-color: #9292e8;
+    background-color: #c3b8b8;
 	/* height:32px; */
 }
 
@@ -209,22 +209,26 @@ ul {
 }
 
 .terminal {
+	border: 1px dashed black;
+	width: 96%;
 	color:#222;
 	text-transform: lowercase;
 	font-size:14px;
-    background-color:#ddd;
+    background-color:#f7f7f7;
 }
 
 .branch {
+	border: 1px dashed grey;
+	width: 96%;	
 	text-transform: uppercase;
 	font-size:18px;
 	color:aliceblue;
-    background-color:#3e1cf4;
+    background-color:#585858;
 }
 
 .action_button {
 	border:2px solid black;
-	color:aliceblue;
+	color:rgb(171, 240, 174);
 	background-color:#292929;
 	width:25px;
 	height:25px;
@@ -234,7 +238,6 @@ ul {
 	line-height: 26px;
 	margin:0 0 0 10px;
 	display:inline-block;
-	font-weight: bold;
 }
 
 #json_list {
@@ -243,8 +246,16 @@ ul {
     border-radius: 0;
 }
 
+.simplemodal-container
+{
+    position: absolute;
+    /*top: 0px;*/
+}
+
 .modal_init {
     display: none;
+	width:90%;
+    top:0px;
 }
 
 .modal_init button{
@@ -252,19 +263,14 @@ ul {
     height: 160px;
 }
 
-.modal_init {
-    width: 90%;
-    background-color: #fff;
-}
-
 .modal_init input {
     margin:5px 0;
-    width: 100%;
+    width: 99%;
     font-size: 24px;
 }
 
 .modal_init .submit {
     top:67px;
-    width:100%;
+    width:200px;
     height:80px;
 }

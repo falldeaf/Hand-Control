@@ -25,136 +25,167 @@
 
 var timer_handle = 0;
 
+var current_MAC = "";
+var blank_MAC = "--:--:--:--:--:--";
+
 var connected_base = "#8aed8d";
 var connected_highlight = "#06be1b";
 var disconnected_base = "#e85a6a";
 var disconnected_highlight = "#e31a1a";
 
 var app = {
-    // Application Constructor
-    initialize: function () {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        deviceList.addEventListener('touchstart', this.connect, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        //app.receivedEvent('deviceready');
+	// Application Constructor
+	initialize: function () {
+		this.bindEvents();
+	},
+	// Bind Event Listeners
+	//
+	// Bind any events that are required on startup. Common events are:
+	// 'load', 'deviceready', 'offline', and 'online'.
+	bindEvents: function () {
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+		deviceList.addEventListener('touchstart', this.connect, false);
+	},
+	// deviceready Event Handler
+	//
+	// The scope of 'this' is the event. In order to call the 'receivedEvent'
+	// function, we must explicitly call 'app.receivedEvent(...);'
+	onDeviceReady: function () {
+		//app.receivedEvent('deviceready');
+
+	},
+	// Update DOM on a Received Event
+	/*
+	receivedEvent: function(id) {
+	    var parentElement = document.getElementById(id);
+	    var listeningElement = parentElement.querySelector('.listening');
+	    var receivedElement = parentElement.querySelector('.received');
+
+	    listeningElement.setAttribute('style', 'display:none;');
+	    receivedElement.setAttribute('style', 'display:block;');
+
+	    console.log('Received Event: ' + id);
+	},*/
+
+	displayConnected: function () {
+		$('#connection_status').animate({
+			"background-color": connected_base
+		}, 1000);
+		$('#MAC').html(current_MAC);
+		$('#MAC').animate({
+			"background-color": connected_highlight
+		}, 1000);
 		
-    },
-    // Update DOM on a Received Event
-    /*
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+		//add disconnect button, remove discover and connect
+	},
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+	displayDisconnected: function () {
+		$('#connection_status').animate({
+			"background-color": disconnected_base
+		}, 1000);
+		$('#MAC').animate({
+			"background-color": disconnected_highlight
+		}, 1000);
+		
+		//add discover and connect button, remove disconnect
 
-        console.log('Received Event: ' + id);
-    },*/
-    
-    displayConnected: function() {
-        $('#connect_action').animate({"background-color": connected_base}, 1000);
-        $('#MAC').animate({"background-color": connected_highlight}, 1000);
-    },
+	},
 
-    displayDisconnected: function() {
-        $('#connect_action').animate({"background-color": disconnected_base}, 1000);
-        $('#MAC').animate({"background-color": diconnected_highlight}, 1000);
-    },
-
-	CallWebIntent: function(url_str) {
+	CallWebIntent: function (url_str) {
 		window.plugins.webintent.startActivity({
-			action: window.plugins.webintent.ACTION_VIEW,
-			url: url_str}, 
-			function() {alert('success')}, 
-			function() {alert('Failed to open URL via Android Intent')}
+				action: window.plugins.webintent.ACTION_VIEW,
+				url: url_str
+			},
+			function () {
+				//alert('success')
+			},
+			function () {
+				alert('Failed to open URL via Android Intent')
+			}
 		);
 	},
-	
-	onData: function(data) {
+
+	onData: function (data) {
 		console.log(data);
 		var button_value = arrayBufferToInt(data);
 		//var div = document.getElementById('logdiv');
 		//div.innerHTML = div.innerHTML + button_value;
 		Call(button_value);
 	},
-	
-	Discover: function() {
-        console.log("looking for apps");
-		rfduino.discover(3, app.onDiscoverDevice, function(){ alert("failed :("); });
+
+	Discover: function () {
+		console.log("looking for apps");
+		rfduino.discover(3, app.onDiscoverDevice, function () {
+			alert("failed :(");
+		});
 	},
-	
-	onDiscoverDevice: function(device) {
-        var listItem = document.createElement('li'),
-            html = '<b>' + device.name + '</b><br/>' +
-                'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
-                'Advertising: ' + device.advertising + '<br/>' +
-                device.uuid;
 
-        listItem.setAttribute('uuid', device.uuid);
-        listItem.innerHTML = html;
+	onDiscoverDevice: function (device) {
+		$('#devicelist').html('');
+		var listItem = document.createElement('li'),
+			html = '<b>' + device.name + '</b><br/>' +
+			'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
+			'Advertising: ' + device.advertising + '<br/>' +
+			device.uuid;
+
+		current_MAC = device.uuid;
+
+		listItem.setAttribute('uuid', device.uuid);
+		listItem.innerHTML = html;
 		var devices = document.getElementById('deviceList');
-        devices.appendChild(listItem);
-        $('#devicesDisplay').slideDown("fast", "swing");
-    },
-    
-    connect: function(e) {
-        var uuid = e.target.getAttribute('uuid'),
-            onConnect = function() {
-                rfduino.onData(app.onData, app.onError);
-                //app.showDetailPage();
-                $('#devicesDisplay').slideUp("fast", "swing");
-                app.displayDisconnected();
-                alert("connected!");
-                connected = true;
-                $('#connect_action').text('disconnect');
-                timer_handle = window.setInterval(app.onConnectionTest, 1000);
-            };
+		devices.appendChild(listItem);
+		$('#devicesDisplay').slideDown("fast", "swing");
+	},
 
-        rfduino.connect(uuid, onConnect, app.onError);
-    },
-    
-    disconnect: function() {
-        rfduino.disconnect(function() {
-            app.displayDisconnected();
-        }, app.onError);
-    },
-    
-    onError: function(reason) {
-        alert(reason); // real apps should use notification.alert
-        app.disconnect();
-    },
-    
-    onConnectionTest: function() {
-        rfduino.isConnected(function() {
-            //connected
-        }, function(){
-            //not connected
-            $('#connect_action').text('disconnect');
-            deviceList.addEventListener('touchstart', this.connect, false);
-            window.clearInterval(timer_handle);
-        });
-    }
+	connect: function (e) {
+		var uuid = e.target.getAttribute('uuid'),
+			onConnect = function () {
+				rfduino.onData(app.onData, app.onError);
+				//app.showDetailPage();
+				$('#devicesDisplay').slideUp("fast", "swing");
+				app.displayConnected();
+				//alert("connected!");
+				connected = true;
+				$('#connect_action').text('disconnect');
+				timer_handle = window.setInterval(app.onConnectionTest, 1000);
+			};
+
+		rfduino.connect(uuid, onConnect, app.onError);
+	},
+
+	reconnect: function () {
+		rfduino.connect(current_MAC, onConnect, app.onError);
+	},
+
+	disconnect: function () {
+		rfduino.disconnect(function () {
+			app.displayDisconnected();
+		}, app.onError);
+	},
+
+	onError: function (reason) {
+		alert(reason); // real apps should use notification.alert
+		app.disconnect();
+	},
+
+	onConnectionTest: function () {
+		rfduino.isConnected(function () {
+			//connected
+		}, function () {
+			//not connected
+			$('#connect_action').text('disconnect');
+			deviceList.addEventListener('touchstart', this.connect, false);
+			window.clearInterval(timer_handle);
+		});
+	}
 
 };
 
 var arrayBufferToInt = function (ab) {
-    var a = new Uint8Array(ab);
-    return a[0];
+	var a = new Uint8Array(ab);
+	return a[0];
 };
 
 function testSlide() {
-    $('#devicesDisplay').slideDown("fast", "swing");
+	$('#devicesDisplay').slideDown("fast", "swing");
 }
