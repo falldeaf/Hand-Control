@@ -150,8 +150,6 @@ var app = {
 				//app.showDetailPage();
 				$('#devicesDisplay').slideUp("fast", "swing");
 				app.displayConnected();
-				connected = true;
-				$('#connect_action').text('disconnect');
 				//timer_handle = window.setInterval(app.onConnectionTest, 1000);
 			};
 
@@ -159,7 +157,11 @@ var app = {
 	},
 
 	reconnect: function () {
-		rfduino.connect(current_MAC, onConnect, app.onError);
+		rfduino.connect(current_MAC, function() {
+            rfduino.onData(app.onData, app.onError);
+            //app.showDetailPage();
+			app.displayConnected();
+        }, app.onError);
 	},
 
 	disconnect: function () {
