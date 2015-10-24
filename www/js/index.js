@@ -152,7 +152,7 @@ var app = {
 				app.displayConnected();
 				connected = true;
 				$('#connect_action').text('disconnect');
-				timer_handle = window.setInterval(app.onConnectionTest, 1000);
+				//timer_handle = window.setInterval(app.onConnectionTest, 1000);
 			};
 
 		rfduino.connect(uuid, onConnect, app.onError);
