@@ -33,6 +33,9 @@ var connected_highlight = "#06be1b";
 var disconnected_base = "#e85a6a";
 var disconnected_highlight = "#e31a1a";
 
+var disconnected_buttons = "<button id='connect_action'onclick='app.Discover();'>Discover</button><button id='connect_action' onclick='app.reconnect();'>reconnect</button>";
+var connected_buttons = "<button id='connect_action' onclick='app.disconnect();'>disconnect</button>";
+
 var app = {
 	// Application Constructor
 	initialize: function () {
@@ -77,6 +80,8 @@ var app = {
 		}, 1000);
 		
 		//add disconnect button, remove discover and connect
+        $('#connection_status button').remove();
+        $('#connection_status').prepend(connected_buttons);
 	},
 
 	displayDisconnected: function () {
@@ -88,7 +93,8 @@ var app = {
 		}, 1000);
 		
 		//add discover and connect button, remove disconnect
-
+        $('#connection_status button').remove();
+        $('#connection_status').prepend(disconnected_buttons);
 	},
 
 	CallWebIntent: function (url_str) {
@@ -144,7 +150,6 @@ var app = {
 				//app.showDetailPage();
 				$('#devicesDisplay').slideUp("fast", "swing");
 				app.displayConnected();
-				//alert("connected!");
 				connected = true;
 				$('#connect_action').text('disconnect');
 				timer_handle = window.setInterval(app.onConnectionTest, 1000);
