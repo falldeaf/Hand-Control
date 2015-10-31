@@ -183,7 +183,7 @@ var app = {
 	},
     
     lockConnect: function() {
-        timer_handle = window.setInterval(app.onConnectionTest, 1000);
+        timer_handle = window.setInterval(app.onConnectionTest, 60000);
         $('#lockconn').html('<i class="fa fa-lock"></i>');
     },
     
