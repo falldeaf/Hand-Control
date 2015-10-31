@@ -55,7 +55,11 @@ var app = {
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function () {
 		//app.receivedEvent('deviceready');
-
+        if(localStorage.getItem('MAC') !== null) {
+            current_MAC = localStorage.getItem('MAC');
+            app.lockConnect();
+        }
+        
 	},
 	// Update DOM on a Received Event
 	/*
@@ -134,7 +138,7 @@ var app = {
 			'Advertising: ' + device.advertising + '<br/>' +
 			device.uuid;
 
-		current_MAC = device.uuid;
+		//current_MAC = device.uuid;
 
 		listItem.setAttribute('uuid', device.uuid);
 		listItem.innerHTML = html;
@@ -145,11 +149,13 @@ var app = {
 
 	connect: function (e) {
 		var uuid = e.target.getAttribute('uuid'),
-			onConnect = function () {
+			onConnect = function (uuid) {
 				rfduino.onData(app.onData, app.onError);
 				//app.showDetailPage();
 				$('#devicesDisplay').slideUp("fast", "swing");
 				app.displayConnected();
+                current_MAC = uuid;
+                localStorage.setItem('mac', uuid);
 				//timer_handle = window.setInterval(app.onConnectionTest, 1000);
 			};
 
@@ -171,18 +177,28 @@ var app = {
 	},
 
 	onError: function (reason) {
-		alert(reason); // real apps should use notification.alert
-		app.disconnect();
+		console.log(reason); // real apps should use notification.alert
+		bg_flash("red");
+        app.disconnect();
 	},
+    
+    lockConnect: function() {
+        timer_handle = window.setInterval(app.onConnectionTest, 1000);
+        $('#lockconn').html('<i class="fa fa-lock"></i>');
+    },
+    
+    unlockConnect: function() {
+        window.clearInterval(timer_handle);
+        $('#lockconn').html('<i class="fa fa-unlock"></i>');
+    },
 
 	onConnectionTest: function () {
 		rfduino.isConnected(function () {
 			//connected
 		}, function () {
 			//not connected
-			$('#connect_action').text('disconnect');
-			deviceList.addEventListener('touchstart', this.connect, false);
-			window.clearInterval(timer_handle);
+			app.reconnect();
+			
 		});
 	}
 

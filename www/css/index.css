@@ -156,6 +156,13 @@ h1 {
 	float:right;
 }
 
+#lockconn {
+    padding:4px;
+    margin: 5px;
+    float:right;
+    font-size: 18px;
+}
+
 /* connected colors */
 .connected_base {
 	background-color:#8aed8d;
@@ -210,7 +217,7 @@ ul {
 
 .terminal {
 	border: 1px dashed black;
-	width: 96%;
+	width: 90%;
 	color:#222;
 	text-transform: lowercase;
 	font-size:14px;
@@ -219,7 +226,7 @@ ul {
 
 .branch {
 	border: 1px dashed grey;
-	width: 96%;	
+	width: 90%;	
 	text-transform: uppercase;
 	font-size:18px;
 	color:aliceblue;
