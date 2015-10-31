@@ -57,6 +57,7 @@ var app = {
 		//app.receivedEvent('deviceready');
         if(localStorage.getItem('MAC') !== null) {
             current_MAC = localStorage.getItem('MAC');
+            //$('#MAC').html(current_MAC);
             app.lockConnect();
         }
         
@@ -149,14 +150,16 @@ var app = {
 
 	connect: function (e) {
 		var uuid = e.target.getAttribute('uuid'),
-			onConnect = function (uuid) {
+			onConnect = function () {
 				rfduino.onData(app.onData, app.onError);
 				//app.showDetailPage();
 				$('#devicesDisplay').slideUp("fast", "swing");
-				app.displayConnected();
+				
                 current_MAC = uuid;
                 localStorage.setItem('mac', uuid);
-				//timer_handle = window.setInterval(app.onConnectionTest, 1000);
+				app.displayConnected();
+                app.lockConnect();
+                //timer_handle = window.setInterval(app.onConnectionTest, 1000);
 			};
 
 		rfduino.connect(uuid, onConnect, app.onError);
