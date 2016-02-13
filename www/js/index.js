@@ -71,6 +71,10 @@ var app = {
             app.lockConnect();
         }
         
+        window.plugins.backgroundMode.configure({
+            title: "Connect!"
+        });
+        
 	},
 	// Update DOM on a Received Event
 	/*
