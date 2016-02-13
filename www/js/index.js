@@ -54,13 +54,15 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function () {
-        window.plugin.backgroundMode.setDefaults({
+        
+        window.plugins.backgroundMode.setDefaults({
             title:  "Hand Thingy",
             ticker: "tick",
-            text:   "connected"
+            text:   "connected",
+            resume: true
         });
         
-        window.plugin.backgroundMode.enable();
+        window.plugins.backgroundMode.enable();
         
 		//app.receivedEvent('deviceready');
         if(localStorage.getItem('MAC') !== null) {
