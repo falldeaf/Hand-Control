@@ -54,19 +54,11 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function () {
-<<<<<<< HEAD
-        window.plugins.backgroundMode.setDefaults({
-            title:  "Hand Thingy",
-            ticker: "tick",
-            text:   "connected"
-=======
         
         window.plugins.backgroundMode.setDefaults({
             title:  "Hand Thingy",
             ticker: "tick",
-            text:   "connected",
-            resume: true
->>>>>>> origin/master
+            text:   "connected"
         });
         
         window.plugins.backgroundMode.enable();
@@ -77,10 +69,6 @@ var app = {
             //$('#MAC').html(current_MAC);
             app.lockConnect();
         }
-        
-        window.plugins.backgroundMode.configure({
-            title: "Connect!"
-        });
         
 	},
 	// Update DOM on a Received Event
