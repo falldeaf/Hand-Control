@@ -54,6 +54,14 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function () {
+        window.plugins.backgroundMode.setDefaults({
+            title:  "Hand Thingy",
+            ticker: "tick",
+            text:   "connected"
+        });
+        
+        window.plugins.backgroundMode.enable();
+        
 		//app.receivedEvent('deviceready');
         if(localStorage.getItem('MAC') !== null) {
             current_MAC = localStorage.getItem('MAC');
@@ -186,6 +194,7 @@ var app = {
 	},
     
     lockConnect: function() {
+        
         timer_handle = window.setInterval(app.onConnectionTest, 60000);
         $('#lockconn').html('<i class="fa fa-lock"></i>');
     },
