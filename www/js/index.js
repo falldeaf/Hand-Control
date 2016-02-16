@@ -55,7 +55,7 @@ var app = {
 	// function, we must explicitly call 'app.receivedEvent(...);'
 	onDeviceReady: function () {
         
-        window.plugins.backgroundMode.setDefaults({
+        window.plugin.backgroundMode.setDefaults({
             title:  "Hand Thingy",
             ticker: "tick",
             text:   "connected"
