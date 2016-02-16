@@ -61,7 +61,7 @@ var app = {
             text:   "connected"
         });
         
-        window.plugins.backgroundMode.enable();
+        window.plugin.backgroundMode.enable();
         
 		//app.receivedEvent('deviceready');
         if(localStorage.getItem('MAC') !== null) {
