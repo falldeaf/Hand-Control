@@ -188,6 +188,20 @@ function branchNotify(num, color) {
 	add_nnode(++num, "branch", color);
 }
 
+function getTaskerTasks() {
+    window.plugins.contentproviderplugin.query({
+        contentUri: "content://net.dinglisch.android.tasker/tasks",
+        projection: ["name", "project_name"],
+        selection: null,
+        selectionArgs: null,
+        sortOrder: "date DESC"
+    }, function (data) {
+        console.log(JSON.stringify(data));
+    }, function (err) {
+        console.log("error query");
+    });
+}
+
 function sendIntent(num, wintent, color) {
 	add_nnode(++num, "action", color);
 	console.log(wintent + ":" + color);
