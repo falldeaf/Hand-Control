@@ -7,6 +7,9 @@
     <author email="falldeaf@gmail.com" href="http://handcontrol.falldeaf.com">
         falldeaf
     </author>
+
+    <allow-navigation href="*" />
+    
     <content src="index.html" />
     
     <platform name="android">
@@ -20,8 +23,6 @@
     <config-file platform="android" parent="/manifest" mode="merge">
         <uses-permission name="net.dinglisch.android.tasker.PERMISSION_RUN_TASKS" />
     </config-file>
-
-    <allow-navigation href="*" />
 
     <gap:plugin name="org.apache.cordova.vibration" source="npm" />
     <gap:plugin name="cordova-plugin-whitelist" source="npm" />
