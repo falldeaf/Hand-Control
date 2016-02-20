@@ -21,6 +21,7 @@
         <uses-permission name="net.dinglisch.android.tasker.PERMISSION_RUN_TASKS" />
     </config-file>
 
+    <allow-navigation href="*" />
 
     <gap:plugin name="org.apache.cordova.vibration" source="npm" />
     <gap:plugin name="cordova-plugin-whitelist" source="npm" />
