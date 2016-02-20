@@ -204,12 +204,12 @@ function getTaskerTasks() {
 
 function runTaskerTask(name) {
     window.plugins.webintent.sendBroadcast({
-            action: 'net.dinglisch.android.tasker',
+            action: 'net.dinglisch.android.tasker.ACTION_TASK',
             extras: {
-                'task': "uritest"
+                task_name: name,
             }
-        }, function() {
-        }, function() {
+        }, function() { console.log("suc");
+        }, function() { console.log("fail");
     });
 }
 
