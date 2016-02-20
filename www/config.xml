@@ -8,8 +8,6 @@
         falldeaf
     </author>
 
-    <allow-navigation href="*" />
-    
     <content src="index.html" />
     
     <platform name="android">
@@ -24,9 +22,8 @@
         <uses-permission name="net.dinglisch.android.tasker.PERMISSION_RUN_TASKS" />
     </config-file>
 
+    <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
     <gap:plugin name="org.apache.cordova.vibration" source="npm" />
-    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
-
 	<gap:plugin name="com.megster.cordova.rfduino" version="0.1.0" />
     <!-- <plugin name="de.appplant.cordova.plugin.background-mode" spec="0.6.4" source="pgb" /> -->
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" />
@@ -60,5 +57,9 @@
     <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/screen-ipad-portrait.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
     <access origin="*" />
 </widget>
