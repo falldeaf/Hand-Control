@@ -19,9 +19,9 @@
         <preference name="disable-cursor" value="false" />
     </platform>
     
-    <config-file platform="android" parent="/manifest" mode="merge">
-        <uses-permission android:name="net.dinglisch.android.tasker.PERMISSION_RUN_TASKS" android:maxSdkVersion="18" />
-    </config-file>
+    <gap:config-file platform="android" parent="/manifest">
+        <uses-permission android:name="net.dinglisch.android.tasker.PERMISSION_RUN_TASKS" />
+    </gap:config-file>
 
     <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
     <gap:plugin name="org.apache.cordova.vibration" source="npm" />
