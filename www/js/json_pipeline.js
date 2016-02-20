@@ -202,6 +202,17 @@ function getTaskerTasks() {
     });
 }
 
+function runTaskerTask(name) {
+    window.plugins.webintent.sendBroadcast({
+            action: 'net.dinglisch.android.tasker',
+            extras: {
+                'task': "uritest"
+            }
+        }, function() {
+        }, function() {
+    });
+}
+
 function sendIntent(num, wintent, color) {
 	add_nnode(++num, "action", color);
 	console.log(wintent + ":" + color);
