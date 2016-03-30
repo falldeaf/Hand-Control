@@ -216,7 +216,8 @@ function runTaskerTask(name) {
 function sendIntent(num, wintent, color) {
 	add_nnode(++num, "action", color);
 	console.log(wintent + ":" + color);
-	app.CallWebIntent(wintent);
+	//app.CallWebIntent(wintent);
+    runTaskerTask(wintent);
 }
 
 function openModal(dialog) {
