@@ -33,6 +33,9 @@ var connected_highlight = "#06be1b";
 var disconnected_base = "#e85a6a";
 var disconnected_highlight = "#e31a1a";
 
+//ping pong checker handle
+var pingpong = null;
+
 var disconnected_buttons = "<button id='connect_action'onclick='app.Discover();'>Discover</button><button id='connect_action' onclick='app.reconnect();'>reconnect</button>";
 var connected_buttons = "<button id='connect_action' onclick='app.disconnect();'>disconnect</button>";
 
@@ -130,7 +133,12 @@ var app = {
 		var button_value = arrayBufferToInt(data);
 		//var div = document.getElementById('logdiv');
 		//div.innerHTML = div.innerHTML + button_value;
-		Call(button_value);
+		if(data == 'p') {
+            console.log("I see a pong!");
+            clearTimeout(pingpong);
+        } else {
+            Call(button_value);
+        }
 	},
 
 	Discover: function () {
@@ -184,6 +192,7 @@ var app = {
 
 	disconnect: function () {
 		rfduino.disconnect(function () {
+            app.unlockConnect();
 			app.displayDisconnected();
 		}, app.onError);
 	},
@@ -208,7 +217,13 @@ var app = {
 	onConnectionTest: function () {
 		rfduino.isConnected(function () {
 			//connected
-		}, function () {
+			rfduino.write('p', function(){}, function(){});
+            pingpong = setTimeout(function() {
+                rfduino.disconnect(function () {
+                    app.reconnect();	
+                }, app.onError);
+            }, 10000);
+        }, function () {
 			//not connected
 			app.reconnect();
 			

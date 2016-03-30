@@ -208,8 +208,8 @@ function runTaskerTask(name) {
             extras: {
                 task_name: name,
             }
-        }, function() { console.log("suc");
-        }, function() { console.log("fail");
+        }, function() {
+        }, function() {
     });
 }
 
