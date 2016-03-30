@@ -186,6 +186,7 @@ var app = {
 		rfduino.connect(current_MAC, function() {
             rfduino.onData(app.onData, app.onError);
             //app.showDetailPage();
+            app.lockConnect();
 			app.displayConnected();
         }, app.onError);
 	},
