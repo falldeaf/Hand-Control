@@ -133,7 +133,7 @@ var app = {
 		var button_value = arrayBufferToInt(data);
 		//var div = document.getElementById('logdiv');
 		//div.innerHTML = div.innerHTML + button_value;
-		if(data == 'p') {
+		if(data == 112) {
             console.log("I see a pong!");
             clearTimeout(pingpong);
         } else {
@@ -219,9 +219,14 @@ var app = {
 		rfduino.isConnected(function () {
 			//connected
 			rfduino.write('p', function(){}, function(){});
+            console.log("disconnect dead man switch is set");
             pingpong = setTimeout(function() {
+                console.log("Disconnecting because I never heard a ping!");
                 rfduino.disconnect(function () {
-                    app.reconnect();	
+                    setInterval(function() {
+                        console.log("Ok let's try to reconnect after the disconnect");
+                        app.reconnect();	
+                    }, 2000);
                 }, app.onError);
             }, 10000);
         }, function () {
