@@ -133,7 +133,7 @@ var app = {
 		var button_value = arrayBufferToInt(data);
 		//var div = document.getElementById('logdiv');
 		//div.innerHTML = div.innerHTML + button_value;
-		if(data == 112) {
+		if(data == "112") {
             console.log("I see a pong!");
             clearTimeout(pingpong);
         } else {
