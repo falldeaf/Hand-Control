@@ -220,6 +220,7 @@ var app = {
 			//connected
 			rfduino.write('p', function(){}, function(){});
             console.log("disconnect dead man switch is set");
+            /*
             pingpong = setTimeout(function() {
                 console.log("Disconnecting because I never heard a ping!");
                 rfduino.disconnect(function () {
@@ -229,6 +230,7 @@ var app = {
                     }, 2000);
                 }, app.onError);
             }, 10000);
+            */
         }, function () {
 			//not connected
 			app.reconnect();
