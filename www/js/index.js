@@ -225,12 +225,14 @@ var app = {
                 console.log("Disconnecting because I never heard a ping!");
                 
 				rfduino.disconnect(function () {
-            		app.unlockConnect();
+            		//app.unlockConnect();
 					app.displayDisconnected();
+                    /*
                     setTimeout(function() {
                         console.log("Ok let's try to reconnect after the disconnect");
                         app.reconnect();	
                     }, 1000);
+                    */
 				}, app.onError);
 		
             }, 10000);
