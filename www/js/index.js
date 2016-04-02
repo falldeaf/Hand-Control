@@ -227,10 +227,10 @@ var app = {
 				rfduino.disconnect(function () {
             		app.unlockConnect();
 					app.displayDisconnected();
-                    setInterval(function() {
+                    setTimeout(function() {
                         console.log("Ok let's try to reconnect after the disconnect");
                         app.reconnect();	
-                    }, 2000);
+                    }, 1000);
 				}, app.onError);
 		
             }, 10000);
