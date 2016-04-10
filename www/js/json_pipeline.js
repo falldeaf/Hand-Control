@@ -253,7 +253,7 @@ function submitTerminal(event) {
 	var values = this.elements;
 	//console.log(values);
 	//console.log("edit value = " + values.edit.value);
-	addTerminal(values.edit.value, hold_node, values.name.value, values.wintent.value, values.aintent.value, values.color.value);
+	addTerminal(values.edit.value, hold_node, values.name.value, values.wintent.value, values.color.value);
 	$.modal.close();
 	localStorage.setItem('the_tree', JSON.stringify(json));
 }
@@ -265,7 +265,7 @@ function addBranch(edit, node, name, color) {
 		"color": color,
 		"branches": {}
 	}
-    
+
     console.log("edit value = " + edit);
 
 	//eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
@@ -276,20 +276,20 @@ function addBranch(edit, node, name, color) {
 		console.log("edit=false " + node + "[\"branches\"][\"" + name + "\"] = tempn;");
 		eval(node + "[\"branches\"][\"" + name + "\"] = tempn;");
 	}
-    
+
 	draw();
 }
 
-function addTerminal(edit, node, name, wintent, aintent, color) {
+function addTerminal(edit, node, name, wintent, color) {
 
 	var tempn = {
 		"ntype": "terminal",
 		"name": name,
 		"wintent": wintent,
-		"analogue_intent": aintent,
+		//"analogue_intent": aintent,
 		"color": color
 	}
-	
+
 	if(edit === "true") {
 		console.log("edit=true " + node + " = tempn;");
 		eval(node + " = tempn;");
@@ -361,7 +361,7 @@ function draw() {
 			}
 		});
 	});
-	
+
 	$('.edit_branch').click(function (e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -390,14 +390,14 @@ function draw() {
 
 		eval("var nname = " + hold_node + "['name']");
 		eval("var nwintent = " + hold_node + "['wintent']");
-		eval("var naintent = " + hold_node + "['analogue_intent']");
+		//eval("var naintent = " + hold_node + "['analogue_intent']");
 		eval("var ncolor = " + hold_node + "['color']");
 		$("input[name='edit']").val("true");
 		$("input[name='name']").val(nname);
 		$("input[name='color']").val(ncolor);
 		$("input[name='wintent']").val(nwintent);
-		$("input[name='aintent']").val(naintent);
-		
+		//$("input[name='aintent']").val(naintent);
+
 		$('#addTerminal').modal(modal_options);
 		$(".close").unbind().click(function () {
 			$.modal.close();
@@ -409,7 +409,7 @@ function draw() {
 	$('.add_branch').click(function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		
+
 		//clear forms in case editing filled them in
 		$("input[type='text']").val("");
 		$("#editbranch").val("false");
@@ -417,11 +417,11 @@ function draw() {
 		hold_node = $(this).closest('.node').attr('pos');
 
 		$('#addBranch').modal(modal_options);
-		
+
 		$(".close").unbind().click(function () {
 			$.modal.close();
 		});
-	
+
 		$("#branch_form").submit(submitBranch);
 		openKB();
 	});
@@ -429,11 +429,11 @@ function draw() {
 	$('.add_terminal').click(function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		
+
 		//clear the forms in case editing filled them in
 		$("input[type='text']").val("");
 		$("#editaction").val("false");
-		
+
 		hold_node = $(this).closest('.node').attr('pos');
 		$('#addTerminal').modal(modal_options);
 		$(".close").unbind().click(function () {
