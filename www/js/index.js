@@ -45,10 +45,10 @@ var app = {
             text:   "connected"
         });
 
-        window.plugin.backgroundMode.enable();
+				window.plugin.backgroundMode.enable();
 
 		//app.receivedEvent('deviceready');
-        if(localStorage.getItem('MAC') !== null) {
+        if(localStorage.getItem('MAC')) {
             current_MAC = localStorage.getItem('MAC');
             //$('#MAC').html(current_MAC);
             app.lockConnect();
@@ -154,8 +154,9 @@ var app = {
 
                 current_MAC = uuid;
                 localStorage.setItem('mac', uuid);
-				app.displayConnected();
+								app.displayConnected();
                 app.lockConnect();
+
                 //timer_handle = window.setInterval(app.onConnectionTest, 1000);
 			};
 
@@ -167,7 +168,7 @@ var app = {
             rfduino.onData(app.onData, app.onError);
             //app.showDetailPage();
             app.lockConnect();
-			app.displayConnected();
+						app.displayConnected();
         }, app.onError);
 	},
 
@@ -196,6 +197,7 @@ var app = {
     },
 
 	onConnectionTest: function () {
+		console.log("connection test time.\n")
 		rfduino.isConnected(function () {
 			//connected
 			rfduino.write('p', function(){}, function(){});
