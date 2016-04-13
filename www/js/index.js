@@ -116,6 +116,7 @@ var app = {
 		//div.innerHTML = div.innerHTML + button_value;
 		if(button_value == 112) {
             console.log("I see a pong!");
+						clearInterval(pingpong);
     } else {
             Call(button_value);
     }
@@ -201,6 +202,9 @@ var app = {
 		rfduino.isConnected(function () {
 			//connected
 			rfduino.write('p', function(){}, function(){});
+			pingpong = setInterval(function() {
+				app.disconnect();
+			});
     }, function () {
 			//not connected
 			app.reconnect();
